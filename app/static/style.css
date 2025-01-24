@@ -1,45 +1,99 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  color: #333;
 }
 
 .container {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%; /* Responsive width */
+  max-width: 500px; /* Maximum width for larger screens */
   text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  margin: 20px; /* Add some margin for smaller screens */
+}
+
+h1 {
+  font-size: 2rem; /* Slightly smaller heading */
+  margin-bottom: 20px;
+  color: #444;
 }
 
 textarea {
   width: 100%;
-  height: 100px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  height: 120px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  font-size: 1rem;
+  resize: none;
+  transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+  border-color: #667eea;
+  outline: none;
 }
 
 button {
-  padding: 10px 20px;
-  background-color: #007bff;
+  padding: 12px 25px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 25px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 #result {
-  margin-top: 20px;
+  margin-top: 25px;
+  font-size: 1.2rem;
   font-weight: bold;
+  color: #444;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .container {
+      padding: 20px; /* Less padding on smaller screens */
+  }
+
+  h1 {
+      font-size: 1.8rem; /* Smaller heading on mobile */
+  }
+
+  textarea {
+      height: 100px; /* Smaller textarea on mobile */
+  }
+
+  button {
+      padding: 10px 20px; /* Smaller button on mobile */
+  }
 }
