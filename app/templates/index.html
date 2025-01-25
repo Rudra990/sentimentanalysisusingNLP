@@ -20,32 +20,66 @@
             <option value="zh">Chinese</option>
             <option value="hi">Hindi</option> <!-- Hindi added -->
         </select>
-        <button id="analyze-btn">Analyze Sentiment</button>
-        <div id="result"></div>
-    </div>
+        <button id="analyze-btn">
+          <span>Analyze Sentiment</span>
+          <div class="loader"></div>
+      </button>
+      <div id="result" class="result-box">
+          <div class="result-text">Sentiment: <span id="sentiment-label">-</span></div>
+          <div class="result-text">Confidence: <span id="confidence-score">-</span></div>
+      </div>
+  </div>
+</div>
 
-    <script>
-        document.getElementById("analyze-btn").addEventListener("click", async () => {
-            const text = document.getElementById("text-input").value;
-            const language = document.getElementById("language-select").value;
-            const resultDiv = document.getElementById("result");
+<script>
+  document.getElementById("analyze-btn").addEventListener("click", async () => {
+      const text = document.getElementById("text-input").value;
+      const language = document.getElementById("language-select").value;
+      const resultDiv = document.getElementById("result");
+      const sentimentLabel = document.getElementById("sentiment-label");
+      const confidenceScore = document.getElementById("confidence-score");
+      const analyzeBtn = document.getElementById("analyze-btn");
 
-            if (!text) {
-                resultDiv.innerText = "Please enter some text!";
-                return;
-            }
+      if (!text) {
+          resultDiv.classList.remove("positive", "negative", "neutral");
+          sentimentLabel.innerText = "Please enter some text!";
+          confidenceScore.innerText = "-";
+          return;
+      }
 
-            resultDiv.innerText = "Analyzing...";
+      // Show loading animation
+      analyzeBtn.classList.add("loading");
+      sentimentLabel.innerText = "Analyzing...";
+      confidenceScore.innerText = "-";
 
-            const response = await fetch("/analyze", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text, language })
-            });
+      try {
+          const response = await fetch("/analyze", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text, language })
+          });
 
-            const data = await response.json();
-            resultDiv.innerText = `Sentiment: ${data.label}, Confidence: ${data.score.toFixed(2)}`;
-        });
-    </script>
+          const data = await response.json();
+          sentimentLabel.innerText = data.label;
+          confidenceScore.innerText = data.score.toFixed(2);
+
+          // Add color based on sentiment
+          resultDiv.classList.remove("positive", "negative", "neutral");
+          if (data.label === "POSITIVE") {
+              resultDiv.classList.add("positive");
+          } else if (data.label === "NEGATIVE") {
+              resultDiv.classList.add("negative");
+          } else {
+              resultDiv.classList.add("neutral");
+          }
+      } catch (error) {
+          sentimentLabel.innerText = "Error";
+          confidenceScore.innerText = "-";
+      } finally {
+          // Hide loading animation
+          analyzeBtn.classList.remove("loading");
+      }
+  });
+</script>
 </body>
 </html>

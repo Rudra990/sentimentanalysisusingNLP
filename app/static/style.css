@@ -1,5 +1,6 @@
+/* General Styles */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #667eea, #764ba2);
   display: flex;
   justify-content: center;
@@ -9,22 +10,29 @@ body {
   color: #333;
 }
 
-.container {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
+/* Glass Card Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 15px;
+  padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  width: 90%; /* Responsive width */
-  max-width: 500px; /* Maximum width for larger screens */
+  width: 100%;
+  max-width: 500px;
   text-align: center;
   animation: fadeIn 1s ease-in-out;
-  margin: 20px; /* Add some margin for smaller screens */
 }
 
 h1 {
-  font-size: 2rem; /* Slightly smaller heading */
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #ddd;
   margin-bottom: 20px;
-  color: #444;
 }
 
 textarea {
@@ -33,9 +41,11 @@ textarea {
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 10px;
-  border: 2px solid #ddd;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   font-size: 1rem;
   resize: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
   transition: border-color 0.3s ease;
 }
 
@@ -44,7 +54,25 @@ textarea:focus {
   outline: none;
 }
 
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+select:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
 button {
+  position: relative;
   padding: 12px 25px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
@@ -53,6 +81,7 @@ button {
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
 button:hover {
@@ -60,12 +89,61 @@ button:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-#result {
+button.loading span {
+  visibility: hidden;
+}
+
+button.loading .loader {
+  display: block;
+}
+
+.loader {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.result-box {
   margin-top: 25px;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.result-text {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #444;
-  animation: fadeIn 0.5s ease-in-out;
+  margin: 5px 0;
+}
+
+.positive {
+  background: rgba(76, 175, 80, 0.2);
+  border: 2px solid #4CAF50;
+}
+
+.negative {
+  background: rgba(244, 67, 54, 0.2);
+  border: 2px solid #F44336;
+}
+
+.neutral {
+  background: rgba(255, 193, 7, 0.2);
+  border: 2px solid #FFC107;
 }
 
 @keyframes fadeIn {
@@ -79,21 +157,21 @@ button:hover {
   }
 }
 
-/* Responsive adjustments for smaller screens */
+/* Responsive Design */
 @media (max-width: 600px) {
-  .container {
-      padding: 20px; /* Less padding on smaller screens */
+  .glass-card {
+      padding: 20px;
   }
 
   h1 {
-      font-size: 1.8rem; /* Smaller heading on mobile */
+      font-size: 2rem;
   }
 
   textarea {
-      height: 100px; /* Smaller textarea on mobile */
+      height: 100px;
   }
 
   button {
-      padding: 10px 20px; /* Smaller button on mobile */
+      padding: 10px 20px;
   }
 }
